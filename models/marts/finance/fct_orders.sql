@@ -1,23 +1,23 @@
-with orders as  (
+WITH orders AS  (
     select * from {{ ref ('stg_jaffle_shop__orders' )}}
 ),
 
-payments as (
+payments AS (
     select * from {{ ref ('stg_stripe__payments') }}
 ),
 
-order_payments as (
-    select
+order_payments AS (
+    SELECT
         order_id,
         sum (case when status = 'success' then amount end) as amount
 
-    from payments
+    FROM payments
     group by 1
 ),
 
  final as (
 
-    select
+    SELECT
         orders.order_id,
         orders.customer_id,
         orders.order_date,
@@ -27,4 +27,4 @@ order_payments as (
     left join order_payments using (order_id)
 )
 
-select * from final
+SELECT * FROM final
