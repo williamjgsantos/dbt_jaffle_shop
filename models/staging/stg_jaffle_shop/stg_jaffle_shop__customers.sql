@@ -1,7 +1,7 @@
 {{ config(materialized='ephemeral') }}
 
-select
-    id as customer_id,
-    first_name,
-    last_name
-from {{ source('jaffle_shop', 'customers') }}
+SELECT
+  id AS customer_id,
+  first_name,
+  last_name
+FROM {{ source('jaffle_shop', 'customers') }}
